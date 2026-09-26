@@ -1,0 +1,455 @@
+/* ---------- Prevent horizontal scrollbar from left/right slide-ins ---------- */
+html, body { overflow-x: clip; }
+
+/* Restored home header treatment. */
+.home-hero { height: 875px; }
+.home-hero .hero-building {
+  --hero-building-shift: -18vw;
+  bottom: -90px;
+  width: calc(100% + 18vw);
+  height: calc(88% + 90px);
+  animation: hero-building-entry 2.2s var(--rv-ease) forwards;
+  -webkit-mask-image: linear-gradient(to right, #000 0%, #000 100%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, #000 100%, transparent 100%);
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+}
+.home-hero-copy {
+  opacity: 0;
+  transform: translateX(78px);
+  animation: hero-copy-slide-right .85s var(--rv-ease) forwards;
+  animation-delay: 0s;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-building-entry {
+  0% { opacity: 0; transform: translate3d(0, 90px, 0); }
+  58% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  100% { opacity: 1; transform: translate3d(var(--hero-building-shift), 0, 0) scale(.92); }
+}
+
+@keyframes hero-copy-slide-right {
+  from { opacity: 0; transform: translateX(78px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.home-hero-copy {
+  position: absolute;
+  z-index: 2;
+
+  top: 165px;
+  right: 7.5vw;      /* black line wali position */
+  width: 700px;
+  max-width: 48vw;
+
+  color: #fff;
+
+  /* IMPORTANT */
+  text-align: right;
+
+  opacity: 0;
+  transform: translateX(78px);
+
+  animation: hero-copy-slide-right .85s var(--rv-ease) forwards;
+  animation-delay: 0s;
+
+  will-change: transform, opacity;
+}
+
+.home-hero-copy:not(.hero-copy-visible) {
+  animation: none;
+}
+
+.home-hero-copy.hero-copy-visible {
+  animation: hero-copy-slide-right .85s var(--rv-ease) forwards;
+}
+
+.home-hero-copy h1 {
+  margin: 0;
+  font-family: Manrope, sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 3.2vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+  white-space: nowrap;
+  text-shadow: 2px 3px 10px rgba(0, 0, 0, .58);
+}
+
+.home-hero-copy h1 span {
+  color: #f3a0c1;
+}
+
+.home-hero-copy p {
+  margin: 16px 0 24px auto;
+
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.55;
+
+  text-align: right;
+
+  /* paragraph ka right edge bhi same line */
+  max-width: 650px;
+  text-shadow: 1px 2px 8px rgba(0, 0, 0, .58);
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: flex-end;   /* RIGHT SIDE */
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+}
+.hero-actions .btn,
+.hero-outline-btn {
+  min-width: 104px;
+  padding: 11px 18px;
+}
+
+.hero-actions .btn b {
+  margin-left: 8px;
+  font-size: 18px;
+}
+.hero-outline-btn { display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; color: #fff; font-weight: 600; transition: transform .25s var(--rv-ease), background-color .25s ease; }
+.hero-outline-btn:hover { transform: translateY(-3px); background: rgba(255,255,255,.14); }
+.announcement { background: #001b33; min-height: 58px; display: flex; align-items: center; justify-content: center; gap: 7px; }
+.announcement-icon { margin-right: 18px; font-size: 22px; transform: rotate(-28deg); }
+.footer .footer-location, .contact-list .map-link { color: var(--pink); font-weight: 700; }
+.footer .footer-location { display: inline-block; margin-top: 4px; }
+.footer .footer-location:hover { color: #fff; text-decoration: underline; }
+.contact-list .map-link:hover { color: var(--blue); text-decoration: underline; }
+.contact-form-status { margin: 14px 0 0; font-size: 14px; font-weight: 600; }
+.contact-form-status.success { color: #15803d; }
+.contact-form-status.error { color: #b91c1c; }
+.contact-form-status.sending { color: var(--blue); }
+
+/* Facilities heading CTA */
+.title-row { align-items: flex-start; }
+.title-row .text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 13px 20px;
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 5px 14px rgba(0, 22, 43, 0.08);
+  transition: transform .28s var(--rv-ease), background-color .28s ease, color .28s ease, box-shadow .28s ease;
+}
+.title-row .text-link:hover {
+  transform: translateY(-4px);
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(0, 22, 43, 0.22);
+}
+
+/* Admissions intake badge: three looping, expanding orbital rings. */
+.intake {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  outline: none;
+  border-color: rgba(255,255,255,.38);
+  animation: intake-ring-breathe 3.2s ease-in-out infinite;
+}
+.intake::before, .intake::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.intake::before {
+  inset: -22px;
+  z-index: -1;
+  border: 1px dashed rgba(255,217,228,.72);
+  animation: intake-orbit 9s linear infinite, intake-ring-pulse 3.2s ease-in-out infinite .45s;
+}
+.intake::after {
+  inset: -52px;
+  z-index: -2;
+  border: 1px solid rgba(196,225,255,.42);
+  box-shadow: 0 0 32px rgba(255,217,228,.16), inset 0 0 26px rgba(196,225,255,.08);
+  animation: intake-ring-pulse 3.2s ease-in-out infinite 1.05s;
+}
+.intake b, .intake span { position: relative; z-index: 1; }
+
+@keyframes intake-ring-breathe {
+  0%, 100% { border-color: rgba(255,255,255,.18); box-shadow: 0 0 0 0 rgba(255,217,228,0); }
+  50% { border-color: rgba(255,217,228,.92); box-shadow: 0 0 26px 4px rgba(255,217,228,.2); }
+}
+@keyframes intake-ring-pulse {
+  0%, 100% { transform: scale(.86); opacity: .2; }
+  48% { transform: scale(1.08); opacity: .9; }
+  72% { transform: scale(1.16); opacity: .12; }
+}
+@keyframes intake-orbit { to { rotate: 360deg; } }
+
+@media (max-width: 800px) {
+  .home-hero { height: 650px; }
+  .home-hero .hero-building {
+    --hero-building-shift: -18vw;
+    bottom: -55px;
+    width: calc(100% + 18vw);
+    height: calc(84% + 55px);
+  }
+  .home-hero-copy { top: 92px; right: 0; width: 100%; }
+  .home-hero-copy p { font-size: 16px; }
+}
+
+@media (max-width: 600px) {
+  .home-hero { height: 100svh; min-height: 520px; }
+  .home-hero .hero-building {
+    --hero-building-shift: -18vw;
+    bottom: -40px;
+    width: calc(100% + 18vw);
+    height: calc(84% + 40px);
+  }
+  .home-hero-copy { top: 132px; right: 0; width: 100%; max-width: none; padding-inline: 20px; box-sizing: border-box; text-align: center; }
+  .home-hero-copy h1 { font-size: clamp(30px, 7.6vw, 38px); letter-spacing: -2.3px; white-space: normal; }
+  .home-hero-copy p { font-size: 14px; margin: 14px auto 22px; text-align: center; max-width: 330px; }
+  .home-hero-copy p br { display: none; }
+  .hero-actions { gap: 10px; justify-content: center; }
+  .hero-actions .btn, .hero-outline-btn { min-width: 110px; padding: 10px 16px; }
+  .announcement { justify-content: flex-start; padding-inline: 18px; text-align: left; }
+  .announcement-icon { display: none; }
+  .title-row .text-link { margin-top: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero .hero-building,
+  .home-hero-copy,
+  .intake, .intake::before, .intake::after {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Scroll reveal ---------- */
+:root {
+  --rv-distance: 70px;
+  --rv-duration: 0.9s;
+  --rv-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rv {
+  opacity: 0;
+  transition:
+    opacity var(--rv-duration) var(--rv-ease),
+    transform var(--rv-duration) var(--rv-ease);
+  transition-delay: var(--rv-delay, 0ms);
+  will-change: opacity, transform;
+}
+.rv-left  { transform: translateX(calc(var(--rv-distance) * -1)); }
+.rv-right { transform: translateX(var(--rv-distance)); }
+.rv-up    { transform: translateY(50px); }
+.rv-down  { transform: translateY(-50px); }
+.rv-zoom  { transform: scale(0.92); }
+
+.rv.rv-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Mobile: shorter travel so nothing feels heavy */
+@media (max-width: 768px) {
+  :root { --rv-distance: 36px; --rv-duration: 0.7s; }
+}
+
+/* ---------- Image cards: zoom + name reveal on hover ---------- */
+.img-card {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 6px 20px rgba(17, 43, 68, 0.12);
+  transition: transform 0.4s var(--rv-ease), box-shadow 0.4s var(--rv-ease);
+}
+.img-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--rv-ease), filter 0.5s ease;
+}
+.img-card::after {               /* gradient behind the caption */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(17, 43, 68, 0.85), rgba(17, 43, 68, 0) 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.img-card figcaption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  padding: 18px 20px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.45s var(--rv-ease), opacity 0.45s ease;
+}
+.img-card figcaption strong { font-size: 1.05rem; font-weight: 700; }
+.img-card figcaption span   { font-size: 0.85rem; opacity: 0.85; }
+
+.img-card:hover,
+.img-card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(17, 43, 68, 0.25);
+}
+.img-card:hover img,
+.img-card:focus-visible img { transform: scale(1.1); }
+.img-card:hover::after,
+.img-card:focus-visible::after { opacity: 1; }
+.img-card:hover figcaption,
+.img-card:focus-visible figcaption { transform: translateY(0); opacity: 1; }
+
+/* Touch devices have no hover: keep the name visible */
+@media (hover: none) {
+  .img-card::after { opacity: 1; }
+  .img-card figcaption { transform: none; opacity: 1; }
+}
+
+/* ---------- Generic card hover (feature cards, etc.) ---------- */
+.card-hover {
+  transition: transform 0.35s var(--rv-ease), box-shadow 0.35s var(--rv-ease);
+}
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 44px rgba(17, 43, 68, 0.18);
+}
+
+/* Site cards share the same tactile lift, without changing their layout. */
+.branch-card, .program-card, .event-card, .event-note, .feature-card,
+.why-grid article, .mission-grid article, .info-grid article, .ecosystem-grid article,
+.facility-grid article, .gallery-grid article {
+  transition: transform 0.35s var(--rv-ease), box-shadow 0.35s var(--rv-ease), filter 0.35s ease;
+}
+.branch-card:hover, .program-card:hover, .event-card:hover, .event-note:hover,
+.feature-card:hover, .why-grid article:hover, .mission-grid article:hover,
+.info-grid article:hover, .ecosystem-grid article:hover, .facility-grid article:hover,
+.gallery-grid article:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 18px 38px rgba(17, 43, 68, 0.18);
+}
+
+/* Gallery and facility names rise over the photograph on hover. */
+.gallery-grid article { position: relative; overflow: hidden; border-radius: 10px; }
+.gallery-grid img, .facility-grid img { transition: transform 0.65s var(--rv-ease); }
+.gallery-grid article:hover img, .facility-grid article:hover img { transform: scale(1.07); }
+.gallery-grid article::after, .facility-grid article::before {
+  content: '';
+  position: absolute;
+  inset: 35% 0 0;
+  background: linear-gradient(transparent, rgba(0, 22, 43, 0.84));
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.gallery-grid h3 {
+  position: absolute;
+  z-index: 1;
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
+  color: #fff;
+  margin: 0;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.35s var(--rv-ease), opacity 0.35s ease;
+}
+.gallery-grid article:hover::after, .facility-grid article:hover::before { opacity: 1; }
+.gallery-grid article:hover h3 { transform: translateY(0); opacity: 1; }
+
+/* Facility names remain hidden until the corresponding image is hovered. */
+.facility-grid h3 {
+  transform: translateY(22px);
+  opacity: 0;
+  transition: transform 0.38s var(--rv-ease), opacity 0.3s ease;
+}
+.facility-grid article:hover h3 {
+  transform: translateY(0);
+  opacity: 1;
+}
+@media (hover: none) {
+  .gallery-grid article::after { opacity: 1; }
+  .gallery-grid h3 { transform: none; opacity: 1; }
+}
+
+/* ---------- Plain images (not in an ImageCard): gentle zoom ---------- */
+.img-zoom { overflow: hidden; }
+.img-zoom img { transition: transform 0.7s var(--rv-ease); }
+.img-zoom:hover img { transform: scale(1.06); }
+
+/* ---------- Buttons ----------
+   Adjust this selector list to your real button class names. */
+.btn, .button, .cta, .btn-anim, button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 0.25s var(--rv-ease),
+    box-shadow 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+/* light sweep across the button */
+.btn::before, .button::before, .cta::before, .btn-anim::before, button[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-20deg);
+  z-index: -1;
+  transition: left 0.6s ease;
+}
+.btn:hover, .button:hover, .cta:hover, .btn-anim:hover, button[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(17, 43, 68, 0.28);
+}
+.btn:hover::before, .button:hover::before, .cta:hover::before,
+.btn-anim:hover::before, button[type="submit"]:hover::before { left: 130%; }
+.btn:active, .button:active, .cta:active, .btn-anim:active, button[type="submit"]:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 4px 10px rgba(17, 43, 68, 0.2);
+}
+/* optional arrow: <span className="arrow">→</span> inside the button */
+.btn .arrow, .button .arrow, .cta .arrow, .btn-anim .arrow {
+  display: inline-block;
+  transition: transform 0.3s var(--rv-ease);
+}
+.btn:hover .arrow, .button:hover .arrow, .cta:hover .arrow, .btn-anim:hover .arrow {
+  transform: translateX(6px);
+}
+
+/* ---------- Nav link underline grow ---------- */
+.nav-anim a { position: relative; }
+.nav-anim a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 100%; height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s var(--rv-ease);
+}
+.nav-anim a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* ---------- Respect reduced-motion settings ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1; transform: none; transition: none; }
+  .img-card, .img-card img, .img-card figcaption, .card-hover, .btn, .button, .cta, .btn-anim {
+    transition: none;
+  }
+}
